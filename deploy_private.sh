@@ -16,7 +16,7 @@ ssh-add $PRIVATE_KEY
 
 ssh -o StrictHostKeyChecking=no $PRIVATE_USER@$PRIVATE_HOST "mkdir -p /root/app"
 
-scp -o StrictHostKeyChecking=no /root/app/*.jar $PRIVATE_USER@$PRIVATE_HOST:/root/app/app.jar
+scp -o StrictHostKeyChecking=no /root/app/build/libs/*.jar $PRIVATE_USER@$PRIVATE_HOST:/root/app/app.jar
 
 ssh -o StrictHostKeyChecking=no $PRIVATE_USER@$PRIVATE_HOST "nohup java -jar /root/app/app.jar > /root/app/app.log 2>&1 &"
 
