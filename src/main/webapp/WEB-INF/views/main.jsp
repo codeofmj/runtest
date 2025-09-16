@@ -21,7 +21,7 @@
 
 				<!-- Header -->
 					<header id="header" class="alt">
-						<a href="index.html" class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a>
+						<a href="/" class="logo"><strong>Forty</strong> <span>by HTML5 UP</span></a>
 						<nav>
 							<%-- c:if : if문을 태그화 시킨것 --%>
 							<c:if test="${empty user}">

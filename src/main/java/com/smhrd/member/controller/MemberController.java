@@ -28,7 +28,7 @@ public class MemberController {
     // POJO(Plain Old Java Object)라고도 부른다.
 
     // "어떤 요청이 들어왔을 때, 무슨 일을 할지를 정의" --> 메소드
-    @GetMapping("/goMain")
+    @GetMapping("/")
     public String goMain(){
         //1.데이터 수집
         //2.기능 실행
