@@ -1,6 +1,6 @@
 package com.smhrd.member.controller;
 
-import com.smhrd.member.service.MemberMapper;
+//import com.smhrd.member.service.MemberMapper;
 import com.smhrd.member.dto.Member;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class MemberController {
     // xml, interface --> SqlSessionFactory --> DAO
     // MyBatis가 interface를 구현해서 서버 메모리에 등록시켜놓음
     @Autowired // 메모리에서 넣을 수 있는거 가져와서 넣어라
-    private MemberMapper mapper;
+//    private MemberMapper mapper;
 
     // Spring
     // FrontController 기반
@@ -45,12 +45,12 @@ public class MemberController {
         // 1. 데이터 수집
         // 2. 기능 실행
         // >> DB에 회원정보 저장하기
-        System.out.println(member);
-        int cnt = mapper.join(member);
-
-        if(cnt > 0) {
-            System.out.println("회원가입 성공");
-        }
+//        System.out.println(member);
+//        int cnt = mapper.join(member);
+//
+//        if(cnt > 0) {
+//            System.out.println("회원가입 성공");
+//        }
 
         // 3. View 이동
         // redirect
@@ -62,14 +62,14 @@ public class MemberController {
     public String login( Member member, HttpSession session ) {
         // 1. 데이터 수집
         // 2. 기능 실행
-        Member result = mapper.login(member);
-
-        if(result == null) {
-            System.out.println("login f");
-        }else {
-            System.out.println("login t");
-            session.setAttribute("user", result);
-        }
+//        Member result = mapper.login(member);
+//
+//        if(result == null) {
+//            System.out.println("login f");
+//        }else {
+//            System.out.println("login t");
+//            session.setAttribute("user", result);
+//        }
 
         // 3. View 이동
         return "redirect:/goMain";
@@ -97,20 +97,20 @@ public class MemberController {
     @PostMapping("/update")
     public String update(Member member, HttpSession session ) {
         // 1. 데이터 수집
-        Member user = (Member) session.getAttribute("user");
-        String email = user.getEmail();
-
-        member.setEmail(email);
-
-        // 2. 기능 실행
-        int cnt = mapper.update(member);
-
-        if( cnt > 0 ) {
-            System.out.println("update t");
-            session.setAttribute("user", member);
-        }else {
-            System.out.println("update f");
-        }
+//        Member user = (Member) session.getAttribute("user");
+//        String email = user.getEmail();
+//
+//        member.setEmail(email);
+//
+//        // 2. 기능 실행
+//        int cnt = mapper.update(member);
+//
+//        if( cnt > 0 ) {
+//            System.out.println("update t");
+//            session.setAttribute("user", member);
+//        }else {
+//            System.out.println("update f");
+//        }
 
         // 3. View 이동
         return "redirect:/goMain";

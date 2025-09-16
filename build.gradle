@@ -34,15 +34,15 @@ dependencies {
     implementation("org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1") // 구현체
 
     //MySQL, Mybatis 설정
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5'
-    implementation("com.mysql:mysql-connector-j:9.1.0")
+//	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5'
+//    implementation("com.mysql:mysql-connector-j:9.1.0")
 
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5'
+//	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
