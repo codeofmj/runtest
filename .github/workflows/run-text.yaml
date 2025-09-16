@@ -1,25 +1,74 @@
-name: Run Test
+# Action 파일 제목
+name: Spring Boot Gradle CI/CD
 
+# 어디에 올릴 건지
 on:
   push:
-    branches: [ master ]
+    branches: ["master"]
+  # 수동으로 Action 실행할 수 있게 해주는 옵션
+  workflow_dispatch:
 
+# 진행할 내용 
 jobs:
-  build:
-    runs-on: [ ubuntu-latest ]
+  # build, 배포에 활용되는 환경 잡아주기
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
+
+    # name 1개가 step 1개
     steps:
-      - name: checkout
-        uses: actions/checkout@v4
+      # 파일에 문제가 없는지 체크
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: java setup
-        uses: actions/setup-java@v2
+      # Java version 세팅
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
         with:
-          distribution: 'adopt'
+          distribution: 'temurin'
           java-version: '17'
+      
+      # Gradle 형상관리 세팅
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
 
-      - name: make executable gradlew
+      - name: Grant execute permission for Gradlew
         run: chmod +x ./gradlew
 
-      - name: run unittest
-        run: ./gradlew clean test
+      # gradlew 를 이용해서 프로젝트 빌드
+      - name: Build JAR with Gradle
+        run: ./gradlew clean bootJar -x test
+
+      # JAR 파일을 NCP Public Server로 전송
+      # secrets 는 고정된 변수
+      # PUBLIC_HOST 로 적힌 것은 변경 가능
+      - name: Copy JAR to Public Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.PUBLIC_HOST }}
+          username: root
+          key: ${{ secrets.PUBLIC_SSH_KEY }}
+          source: |
+            build/libs/*SNAPSHOT.jar
+          target: /root/app/
+
+      - name: Copy deploy script to Public Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.PUBLIC_HOST }}
+          username: root
+          key: ${{ secrets.PUBLIC_SSH_KEY }}
+          source: |
+            deploy_private.sh
+          target: /root/app/
+
+      # chmod +x : 실행권한부여
+      - name: Execute deploy_private.sh on Public Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PUBLIC_HOST }}
+          username: root
+          key: ${{ secrets.PUBLIC_SSH_KEY }}
+          script: |
+            chmod +x /root/app/deploy_private.sh
+            /root/app/deploy_private.sh
