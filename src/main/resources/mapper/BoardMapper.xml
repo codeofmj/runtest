@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.member.service.BoardMapper">
+
+    <select id="list" resultType="com.smhrd.member.dto.Board">
+        select * from board
+    </select>
+
+    <select id="search" resultType="com.smhrd.member.dto.Board">
+        select * from board where title like #{text}
+    </select>
+
+    <select id="chart" resultType="com.smhrd.member.dto.Board">
+        select writer, Max(count) as count
+        from board
+        group by writer
+        order by count desc
+        limit 5
+    </select>
+
+    <select id="view" resultType="com.smhrd.member.dto.Board">
+        select * from board where idx=#{idx}
+    </select>
+
+    <insert id="write" parameterType="com.smhrd.member.dto.Board">
+        insert into board( title, writer, content, img )
+        values( #{title}, #{writer}, #{content}, #{img} )
+    </insert>
+
+    <delete id="delete">
+        delete from board where idx=#{idx}
+    </delete>
+
+</mapper>
