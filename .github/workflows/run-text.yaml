@@ -37,19 +37,19 @@ jobs:
 
       # gradlew 를 이용해서 프로젝트 빌드
       - name: Build JAR with Gradle
-        run: ./gradlew clean bootJar -x test
+        run: ./gradlew clean bootWar -x test
 
       # JAR 파일을 NCP Public Server로 전송
       # secrets 는 고정된 변수
       # PUBLIC_HOST 로 적힌 것은 변경 가능
-      - name: Copy JAR to Public Server
+      - name: Copy WAR to Public Server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.PUBLIC_HOST }}
           username: root
           key: ${{ secrets.PUBLIC_SSH_KEY }}
           source: |
-            build/libs/*SNAPSHOT.jar
+            build/libs/*SNAPSHOT.war
           target: /root/app/
 
       - name: Copy deploy script to Public Server
