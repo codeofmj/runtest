@@ -14,7 +14,7 @@ public class MemberController {
 
     // xml, interface --> SqlSessionFactory --> DAO
     // MyBatis가 interface를 구현해서 서버 메모리에 등록시켜놓음
-    @Autowired // 메모리에서 넣을 수 있는거 가져와서 넣어라
+//    @Autowired // 메모리에서 넣을 수 있는거 가져와서 넣어라
 //    private MemberMapper mapper;
 
     // Spring
